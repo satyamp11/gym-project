@@ -2,9 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Shield, Cpu, Flame, Zap } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Sparkles, Shield, Cpu, Flame, Zap, Play, Pause } from 'lucide-react';
 
 const TOTAL_NEW_FRAMES = 300;
 const NEW_FRAME_DIR = '/new images';
@@ -20,9 +18,12 @@ export default function Equipment3D() {
 
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   const imagesRef = useRef<HTMLImageElement[]>([]);
-  const frameObj = useRef({ currentFrame: 1 });
+  const currentFrameRef = useRef(1);
+  const animFrameReqRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number>(0);
 
   const highlights = [
     { title: "STRENGTH", subtitle: "High-density cast iron & competition steel", icon: <Shield className="h-5 w-5 text-sky-400" /> },
@@ -103,81 +104,80 @@ export default function Equipment3D() {
   // Window resize handler
   useEffect(() => {
     const handleResize = () => {
-      renderFrame(Math.round(frameObj.current.currentFrame));
+      renderFrame(currentFrameRef.current);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Initial draw
+  // Smooth 30 FPS Autoplay Loop when visible on screen
   useEffect(() => {
-    if (imagesRef.current[0]) {
-      renderFrame(1);
+    let isVisible = false;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
-  }, [loadProgress]);
 
-  // GSAP ScrollTrigger timeline for scroll animation
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    const animateLoop = (timestamp: number) => {
+      if (!lastTimeRef.current) lastTimeRef.current = timestamp;
+      const elapsed = timestamp - lastTimeRef.current;
 
-    if (!sectionRef.current) return;
+      // ~30 FPS frame rate (33.3ms per frame)
+      if (isVisible && isPlaying && elapsed > 33) {
+        lastTimeRef.current = timestamp;
+        currentFrameRef.current = (currentFrameRef.current % TOTAL_NEW_FRAMES) + 1;
+        renderFrame(currentFrameRef.current);
+      }
 
-    const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth < 768;
-      const scrollDistance = isMobile ? '150%' : '250%';
+      animFrameReqRef.current = requestAnimationFrame(animateLoop);
+    };
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top+=60',
-          end: `+=${scrollDistance}`,
-          pin: true,
-          scrub: 0.5,
-          anticipatePin: 1,
-          onUpdate: () => {
-            renderFrame(Math.round(frameObj.current.currentFrame));
-          },
-        },
-      });
+    animFrameReqRef.current = requestAnimationFrame(animateLoop);
 
-      // Scroll-driven frame progress (1 -> 300)
-      tl.to(frameObj.current, {
-        currentFrame: TOTAL_NEW_FRAMES,
-        ease: 'none',
-        duration: 10,
-      }, 0);
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+    return () => {
+      if (animFrameReqRef.current) {
+        cancelAnimationFrame(animFrameReqRef.current);
+      }
+      observer.disconnect();
+    };
+  }, [isPlaying]);
 
   return (
     <section
       id="equipment"
       ref={sectionRef}
-      className="relative min-h-screen py-24 bg-[#18242a] border-t border-white/10 overflow-hidden font-sans select-none"
+      className="relative py-28 bg-[#18242a] border-t border-white/10 overflow-hidden font-sans select-none"
     >
       {/* Ambient Spotlight Glows */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-sky-500/10 blur-[180px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col justify-center h-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
-        <div className="text-center space-y-3 max-w-2xl mx-auto mb-10">
+        <div className="text-center space-y-3 max-w-2xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em] text-sky-400 font-semibold px-4 py-1.5 rounded-full glass-card border border-sky-400/30 shadow-glow-sm">
             <Sparkles className="h-3.5 w-3.5" />
-            <span>SCROLL-DRIVEN HARDWARE SHOWCASE</span>
+            <span>AUTOPLAYING HARDWARE SHOWCASE</span>
           </div>
           <h2 className="text-4xl sm:text-6xl font-medium sm:font-semibold text-white uppercase tracking-tight font-sans">
             BIOMECHANICAL <span className="text-gradient-red">EXCELLENCE</span>
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 font-light max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-slate-300 font-light max-w-xl mx-auto leading-relaxed">
             Every bar, weight plate, and kettlebell is engineered for maximum overload and zero energy loss.
           </p>
         </div>
 
-        {/* Scroll-Driven Canvas Video Showcase & Telemetry Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        {/* Video Showcase & Telemetry Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[500px]">
           
           {/* Left Column Callouts */}
           <div className="lg:col-span-3 space-y-6 order-2 lg:order-1">
@@ -205,7 +205,7 @@ export default function Equipment3D() {
             ))}
           </div>
 
-          {/* Center HTML Canvas Video Sequence Display (Replaces 3D Kettlebell) */}
+          {/* Center HTML Canvas Video Player (Autoplays on Visit) */}
           <div className="lg:col-span-6 h-[400px] sm:h-[500px] relative order-1 lg:order-2">
             <div className="relative w-full h-full rounded-3xl overflow-hidden glass-card border-2 border-sky-400/40 shadow-[0_0_50px_rgba(56,189,248,0.25)] group bg-black/60">
               
@@ -218,6 +218,33 @@ export default function Equipment3D() {
               {/* Gradient Overlays */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#18242a] via-transparent to-transparent opacity-60 pointer-events-none" />
 
+              {/* Top Control Bar */}
+              <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20">
+                <button
+                  onClick={() => setIsPlaying(!isPlaying)}
+                  className="px-3.5 py-1.5 rounded-full glass-panel border border-white/20 text-white text-xs font-mono uppercase tracking-wider flex items-center gap-2 hover:border-sky-400 transition-all bg-slate-900/60"
+                >
+                  {isPlaying ? (
+                    <>
+                      <Pause className="h-3.5 w-3.5 text-sky-400" />
+                      <span>PAUSE</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play className="h-3.5 w-3.5 text-sky-400 fill-sky-400" />
+                      <span>PLAY</span>
+                    </>
+                  )}
+                </button>
+
+                {!imagesLoaded && (
+                  <div className="px-3 py-1 rounded-full glass-panel border border-white/10 text-[10px] font-mono text-sky-300 flex items-center gap-2 bg-slate-900/60">
+                    <div className="h-2 w-2 rounded-full bg-sky-400 animate-ping" />
+                    <span>PRELOADING {loadProgress}%</span>
+                  </div>
+                )}
+              </div>
+
               {/* Bottom Telemetry Floating Badge */}
               <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl glass-panel border border-white/20 flex items-center justify-between z-10">
                 <div className="flex items-center gap-2.5">
@@ -227,17 +254,9 @@ export default function Equipment3D() {
                   </span>
                 </div>
                 <span className="text-[11px] font-mono uppercase text-sky-400 font-bold hidden sm:inline">
-                  SCROLL TO ANIMATE
+                  30 FPS LOOP
                 </span>
               </div>
-
-              {/* Loading Indicator */}
-              {!imagesLoaded && (
-                <div className="absolute top-4 right-4 z-20 px-3 py-1 rounded-full glass-panel border border-white/10 text-[10px] font-mono text-sky-300 flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-sky-400 animate-ping" />
-                  <span>LOADING {loadProgress}%</span>
-                </div>
-              )}
             </div>
           </div>
 
