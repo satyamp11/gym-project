@@ -230,7 +230,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-5xl sm:text-7xl lg:text-8xl font-medium tracking-tight text-white uppercase leading-[1.02] font-sans drop-shadow-2xl"
+            className="text-4xl sm:text-7xl lg:text-8xl font-medium tracking-tight text-white uppercase leading-[1.02] font-sans drop-shadow-2xl"
           >
             FORGE YOUR <br />
             <span className="text-gradient-red font-semibold">STRONGEST SELF.</span>

@@ -42,6 +42,7 @@ export default function Trainers() {
                   src={trainer.image}
                   alt={trainer.name}
                   fill
+                  unoptimized={trainer.image.startsWith('/images/')}
                   className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1f2d35] via-transparent to-transparent opacity-90" />

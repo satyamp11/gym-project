@@ -102,7 +102,7 @@ export const GYM_CONFIG = {
       title: "Cardio Suite",
       description: "Interactive curved treadmills, air bikes, water rowers, and stair climbers with live performance telemetry.",
       iconName: "Activity",
-      image: "https://images.unsplash.com/photo-1576678927484-cc909957088c?q=80&w=1200&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?q=80&w=1200&auto=format&fit=crop",
       available: true,
     },
     {

@@ -54,18 +54,20 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
               transition={{ duration: 0.6 }}
               className="space-y-4 flex flex-col items-center"
             >
-              <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-amber-500/50 shadow-[0_0_30px_rgba(245,158,11,0.3)]">
+              <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-amber-400/90 shadow-[0_0_35px_rgba(245,158,11,0.5)] bg-slate-950">
                 <Image
                   src={GYM_CONFIG.logo}
                   alt={GYM_CONFIG.name}
                   fill
-                  className="object-cover"
+                  priority
+                  unoptimized
+                  className="object-cover scale-105"
                 />
               </div>
 
               <div className="space-y-1">
-                <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-white font-sans">
-                  {GYM_CONFIG.name}
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-wider text-white font-sans uppercase">
+                  LEGENDS FITNESS CENTRE
                 </h1>
                 <p className="text-xs sm:text-sm text-amber-400 tracking-[0.25em] font-mono font-bold uppercase">
                   {GYM_CONFIG.subName}

@@ -28,6 +28,7 @@ export default function Footer() {
                   src={GYM_CONFIG.logo}
                   alt={GYM_CONFIG.name}
                   fill
+                  unoptimized
                   className="object-cover scale-105"
                 />
               </div>

@@ -94,19 +94,20 @@ export default function Gallery() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-5xl w-full h-[75vh] rounded-3xl overflow-hidden border border-white/20 shadow-2xl"
+              className="relative max-w-5xl w-full h-[65vh] sm:h-[75vh] rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 shadow-2xl"
             >
               <Image
                 src={selectedImage.image}
                 alt={selectedImage.title}
                 fill
+                unoptimized={selectedImage.image.startsWith('/images/')}
                 className="object-contain bg-[#152026]"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#121b20] via-[#121b20]/80 to-transparent">
-                <span className="text-xs font-mono uppercase text-sky-400 font-semibold tracking-widest">
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-[#121b20] via-[#121b20]/85 to-transparent">
+                <span className="text-[11px] sm:text-xs font-mono uppercase text-sky-400 font-semibold tracking-widest">
                   {selectedImage.category}
                 </span>
-                <h4 className="text-2xl font-bold font-display text-white uppercase">
+                <h4 className="text-lg sm:text-2xl font-bold font-sans text-white uppercase mt-0.5">
                   {selectedImage.title}
                 </h4>
               </div>

@@ -26,19 +26,23 @@ export default function MobileMenu({ isOpen, onClose, navLinks, activeSection }:
           {/* Header Bar */}
           <div className="flex items-center justify-between pt-2 border-b border-white/10 pb-4">
             <div className="flex items-center gap-3">
-              <div className="relative h-10 w-10 rounded-full overflow-hidden border border-amber-500/40">
+              <div className="relative h-11 w-11 rounded-full overflow-hidden border-2 border-amber-400/90 shadow-[0_0_12px_rgba(245,158,11,0.4)] bg-slate-950 shrink-0">
                 <Image
                   src={GYM_CONFIG.logo}
                   alt={GYM_CONFIG.name}
                   fill
-                  className="object-cover"
+                  unoptimized
+                  className="object-cover scale-105"
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="font-display font-extrabold text-lg tracking-tight text-white">
-                  {GYM_CONFIG.name}
+              <div className="flex flex-col justify-center leading-none">
+                <span className="font-bold text-xs tracking-wider text-white uppercase font-sans">
+                  LEGENDS FITNESS
                 </span>
-                <span className="text-[10px] tracking-[0.2em] font-mono text-amber-400 font-bold uppercase -mt-1">
+                <span className="font-bold text-xs tracking-wider text-white uppercase font-sans mt-0.5">
+                  CENTRE
+                </span>
+                <span className="text-[9px] tracking-[0.2em] font-mono text-amber-400 font-bold uppercase mt-0.5">
                   {GYM_CONFIG.subName}
                 </span>
               </div>

@@ -58,24 +58,25 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
           {/* Gym Brand Logo & Typography (Exact Match to Reference Screenshot) */}
-          <a href="#hero" className="flex items-center gap-3.5 group shrink-0">
-            <div className="relative h-13 w-13 sm:h-14 sm:w-14 rounded-full overflow-hidden border-2 border-amber-400/90 group-hover:border-amber-300 group-hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.45)] shrink-0 bg-slate-950">
+          <a href="#hero" className="flex items-center gap-2.5 sm:gap-3.5 group shrink-0">
+            <div className="relative h-11 w-11 sm:h-14 sm:w-14 rounded-full overflow-hidden border-2 border-amber-400/90 group-hover:border-amber-300 group-hover:scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(245,158,11,0.45)] shrink-0 bg-slate-950">
               <Image
                 src={GYM_CONFIG.logo}
                 alt={GYM_CONFIG.name}
                 fill
                 priority
+                unoptimized
                 className="object-cover scale-105"
               />
             </div>
             <div className="flex flex-col justify-center leading-none">
-              <span className="font-bold text-xs sm:text-sm tracking-wider text-white uppercase font-sans">
+              <span className="font-bold text-[11px] sm:text-sm tracking-wider text-white uppercase font-sans">
                 LEGENDS FITNESS
               </span>
-              <span className="font-bold text-xs sm:text-sm tracking-wider text-white uppercase font-sans mt-0.5">
+              <span className="font-bold text-[11px] sm:text-sm tracking-wider text-white uppercase font-sans mt-0.5">
                 CENTRE
               </span>
-              <span className="text-[10px] tracking-[0.22em] font-mono text-amber-400 font-bold uppercase mt-1">
+              <span className="text-[9px] sm:text-[10px] tracking-[0.2em] font-mono text-amber-400 font-bold uppercase mt-0.5">
                 {GYM_CONFIG.subName}
               </span>
             </div>

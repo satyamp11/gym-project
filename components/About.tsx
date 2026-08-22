@@ -88,6 +88,7 @@ export default function About() {
                 alt="Discipline is the bridge between goals and achievements"
                 fill
                 priority
+                unoptimized
                 className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#141f24] via-transparent to-transparent opacity-80" />
