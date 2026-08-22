@@ -55,7 +55,7 @@ export default function BackgroundMusic() {
   };
 
   return (
-    <div className="fixed bottom-6 left-6 z-50 font-sans select-none">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:left-6 z-40 font-sans select-none">
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.9 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}

@@ -30,7 +30,7 @@ export default function Gallery() {
         </div>
 
         {/* Asymmetrical Editorial Grid */}
-        <div className="grid grid-cols-12 gap-4 sm:gap-6 auto-rows-[240px] sm:auto-rows-[300px]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 md:auto-rows-[300px]">
           {GYM_CONFIG.gallery.map((item: GalleryItem, idx: number) => (
             <motion.div
               key={item.id}
@@ -39,7 +39,7 @@ export default function Gallery() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               onClick={() => setSelectedImage(item)}
-              className={`${item.span} group relative rounded-3xl overflow-hidden glass-card border border-white/12 cursor-pointer shadow-xl`}
+              className={`col-span-1 ${item.span} group relative rounded-3xl overflow-hidden glass-card border border-white/12 cursor-pointer shadow-xl h-[280px] md:h-full min-h-[280px]`}
             >
               <Image
                 src={item.image}
