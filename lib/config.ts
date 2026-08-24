@@ -45,7 +45,7 @@ export const GYM_CONFIG = {
   phone: "+91 870 043 4450",
   whatsapp: "918700434450", // Pure numbers without '+' for wa.me links
   email: "connect@legendsfitness.gym",
-  openingHours: "Mon - Sat: 5:00 AM - 11:00 PM | Sun: Closed",
+  openingHours: "Mon - Sat: 5:00 AM - 10:00 PM | Sun: Closed",
   
   // Google Maps
   mapEmbedUrl: "https://maps.google.com/maps?q=28.6821036,77.5029707(LEGENDS%20FITNESS%20CENTRE%20GYM)&t=&z=16&ie=UTF8&iwloc=B&output=embed",

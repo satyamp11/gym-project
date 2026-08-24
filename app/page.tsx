@@ -13,6 +13,7 @@ import Membership from '@/components/Membership';
 import Gallery from '@/components/Gallery';
 import Testimonials from '@/components/Testimonials';
 import WhatsAppCard from '@/components/WhatsAppCard';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import Location from '@/components/Location';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
@@ -28,6 +29,9 @@ export default function Home() {
 
       {/* Background Gym Audio Player Widget */}
       <BackgroundMusic />
+
+      {/* Floating WhatsApp Action Button */}
+      <FloatingWhatsApp />
 
       {/* Main Experience */}
       <div className={`transition-opacity duration-1000 ${loadingComplete ? 'opacity-100' : 'opacity-0'}`}>

@@ -20,7 +20,7 @@ A high-performance, agency-grade 3D gym web application built with **Next.js 14,
   - Integrated Background Gym Motivation Audio Player with Animated Visualizer
   - Official Instagram Profile (`@legends_21_fitness`) Integration
   - Transparent Monthly Membership (₹1,399 / Month)
-  - 6 Days Open Schedule (Mon - Sat: 5:00 AM - 11:00 PM | Sun: Closed)
+  - 6 Days Open Schedule (Mon - Sat: 5:00 AM - 10:00 PM | Sun: Closed)
 
 ---
 
